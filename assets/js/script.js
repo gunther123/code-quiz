@@ -22,23 +22,34 @@ const createQuiz = function(){
     const questionHeaderTextEl = document.getElementById("question-header-text");
     questionHeaderTextEl.textContent = "What variable type allows you to store true or false values?"
     
+    const btn0El = document.createElement("button");
+    btn0El.className = "btn";
+    btn0El.id = "btn-0";
+    btn0El.textContent = "placeholder"
+    const btn1El = document.createElement("btn-1");
+    btn1El.className = "btn";
+    btn1El.id = "btn-1";
+    const btn2El = document.createElement("btn-2");
+    btn2El.className = "btn";
+    btn2El.id = "btn-2";
+    const btn3El = document.createElement("btn-3");
+    btn3El.className = "btn";
+    btn3El.id = "btn-3";
 
-    let buttonCount = 0;
+    const mcButtonContainerEl = document.createElement("div");
+    mcButtonContainerEl.className = "mc-button-container";
+    mcButtonContainerEl.id = "mc-button-container";
 
-    for(buttonCount; buttonCount < 4; buttonCount++)
-    {
-      let newButton = document.createElement("button");
-      newButton.className = "btn";
-      newButton.id = "btn-" + buttonCount;
-    }
-    const btn0 = document.getElementById("btn-0");
-    const btn1 = document.getElementById("btn-1");
-    const btn2 = document.getElementById("btn-2");
-    const btn3 = document.getElementById("btn-3");
+    const questionAnswersContainerEl = document.createElement("div");
+    questionAnswersContainerEl.className = "question-answers-container";
+    questionAnswersContainerEl.id = "question-answers-container";
 
-    const mcButtonContainer = document.createElement("div");
-    mcButtonContainer.className = "mc-button-container";
-    mcButtonContainer.id = "mc-button-container";
+    pageContentEl.appendChild(questionAnswersContainerEl);
+    questionAnswersContainerEl.appendChild(mcButtonContainerEl);
+    mcButtonContainerEl.appendChild(btn0El);
+    mcButtonContainerEl.appendChild(btn1El);
+    mcButtonContainerEl.appendChild(btn2El);
+    mcButtonContainerEl.appendChild(btn3El);
 }
 
 
