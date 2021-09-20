@@ -10,9 +10,10 @@ let score = 0;
 let questionCount = 0;
 
 //Set Timer Variables
-let timer = 99;
-let timerEl = document.getElementById("timer-text");
-
+let timer = 60;
+let timerEl = document.getElementById("timer-count");
+timerEl.innerHTML = timer;
+    
 //Define Timer Countdown
 let timerCountdown = function(){
     if (timer <= 0){
@@ -23,7 +24,8 @@ let timerCountdown = function(){
         timerEl.innerHTML = timer;
         timer--;
     }
-}
+    }
+
 
 
 
@@ -72,7 +74,7 @@ const questions = [q0, q1, q2, q3];
 
 //Starts the Quiz
 const startQuiz = function(){
-    //Start timer
+    //Start Countdown
     let timerID = setInterval(timerCountdown, 1000);
     
     //Remove HTML divs that are not used in the Quiz section
