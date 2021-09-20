@@ -127,6 +127,7 @@ const updateQuestion = function(){
 
 const assessAnswer = function(a){
     //Correct Answer
+    
     if(a === questions[questionCount].answer){
         alert("Correct!");
         score+= 10;
@@ -140,9 +141,16 @@ const assessAnswer = function(a){
         console.log(timer);
         timerEl.textContent = timer;
         questionCount ++;
+    } 
+    if(questionCount <4){
+        updateQuestion();
     }
-    updateQuestion();
-    
+    else{
+        endQuiz();
+    }
+}
+
+const endQuiz = function(){
 }
 
 //Handle all button clicks on the page
