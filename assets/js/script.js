@@ -1,15 +1,17 @@
 //References to html divs
-
 const pageContentEl = document.getElementById("page-content");
 const questionHeaderEl = document.getElementById("question-header");
 const questionContainerEl = document.getElementById("question-container");
-const startButtonContainerEl = document.getElementById("start-button-container")
-const startButtonEl = document.getElementById("start-btn")
+const startButtonContainerEl = document.getElementById("start-button-container");
+const startButtonEl = document.getElementById("start-btn");
+let timerEl = document.getElementById("timer-text");
 
 //Variables question score and count down timer
 let score = 0;
 let timer = 99;
 let questionCount = 0;
+
+//Setting timer text to timer variable
 
 //Variables for questions, guesses, and answers
 const q0 = {
@@ -18,7 +20,7 @@ const q0 = {
     b: "B. Integer",
     c: "C. String",
     d: "D. Array",
-    answer: "a"
+    answer: "A. Boolean"
 }
 
 const q1 = {
@@ -27,7 +29,7 @@ const q1 = {
     b: "B. Booleans",
     c: "C. Numbers",
     d: "D. Alerts",
-    answer: "d"
+    answer: "D. Alerts"
 }
 const q2 = {
     question: 'What is the correct syntax for referring to an external script called "xxx.js"?',
@@ -35,7 +37,7 @@ const q2 = {
     b: 'B. <script name="xxx.js">',
     c: 'C. <script href="xxx.js">',
     d: 'D. None of the above',
-    answer: "a"
+    answer: 'A. <script src="xxx.js"'
 }
 
 const q3 = {
@@ -44,7 +46,7 @@ const q3 = {
     b: "B. <scripting>",
     c: "C. <script>",
     d: "D. <js>",
-    answer: "c"
+    answer: "C. <script>"
 }
 
 // Array of all questions
@@ -62,32 +64,32 @@ const startQuiz = function(){
 //Generate Quiz HTML
 const createQuiz = function(){
     //Getting reference to the Question header
-    const questionHeaderTextEl = document.getElementById("question-header-text");
+    let questionHeaderTextEl = document.getElementById("question-header-text");
     questionHeaderTextEl.textContent = questions[questionCount].question;
     
     //Creating buttons for the Quiz
-    const btn0El = document.createElement("button");
+    let btn0El = document.createElement("button");
     btn0El.className = "btn";
     btn0El.id = "btn-0";
-    btn0El.textContent = q0.a;
+    btn0El.textContent = questions[questionCount].a;
 
-    const btn1El = document.createElement("btn-1");
+    let btn1El = document.createElement("btn-1");
     btn1El.className = "btn";
     btn1El.id = "btn-1";
-    btn1El.textContent = q0.b;
+    btn1El.textContent = questions[questionCount].b;
 
-    const btn2El = document.createElement("btn-2");
+    let btn2El = document.createElement("btn-2");
     btn2El.className = "btn";
     btn2El.id = "btn-2";
-    btn2El.textContent = q0.c;
+    btn2El.textContent = questions[questionCount].c;
 
-    const btn3El = document.createElement("btn-3");
+    let btn3El = document.createElement("btn-3");
     btn3El.className = "btn";
     btn3El.id = "btn-3";
-    btn3El.textContent = q0.d;
+    btn3El.textContent = questions[questionCount].d;
 
     //Create div button container
-    const mcButtonContainerEl = document.createElement("div");
+    let mcButtonContainerEl = document.createElement("div");
     mcButtonContainerEl.className = "mc-button-container";
     mcButtonContainerEl.id = "mc-button-container";
 
@@ -104,21 +106,43 @@ const createQuiz = function(){
     mcButtonContainerEl.appendChild(btn2El);
     mcButtonContainerEl.appendChild(btn3El);
 
-    //Increment question count for questions array
-    questionCount++;
+}
+const updateQuestion = function(){
+    //Getting References to the HTML
+    let questionHeaderTextEl = document.getElementById("question-header-text");
+    let btn0El = document.getElementById("btn-0");
+    let btn1El = document.getElementById("btn-1");
+    let btn2El = document.getElementById("btn-2");
+    let btn3El = document.getElementById("btn-3");
+
+    //Update Question Text
+    questionHeaderTextEl.textContent = questions[questionCount].question;
+
+    //Update Answer's Text
+    btn0El.textContent = questions[questionCount].a;
+    btn1El.textContent = questions[questionCount].b;
+    btn2El.textContent = questions[questionCount].c;
+    btn3El.textContent = questions[questionCount].d;
 }
 
-const assessAnswer = function(answer){
-    if(answer === questions[questionCount].answer){
+const assessAnswer = function(a){
+    //Correct Answer
+    if(a === questions[questionCount].answer){
         alert("Correct!");
         score+= 10;
         console.log(score);
+        questionCount++;
     }
+    //Incorrect Answer
     else{
         alert("Incorrect! Deducting 10 seconds!");
         timer-= 10;
         console.log(timer);
+        timerEl.textContent = timer;
+        questionCount ++;
     }
+    updateQuestion();
+    
 }
 
 //Handle all button clicks on the page
@@ -128,11 +152,10 @@ const buttonHandler = function(){
     if(targetEl.matches("#start-btn")){
         startQuiz();
     }
-    else if (targetEl.matches("#btn0") || targetEl.matches("#btn1") || targetEl.matches("#btn2") || targetEl.matches("#btn3") ){
+    else if (targetEl.matches("#btn-0") || targetEl.matches("#btn-1") || targetEl.matches("#btn-2") || targetEl.matches("#btn-3") ){
         console.dir(targetEl);
-        let answer = targetEl.innerText;
-        console.log(answer);
-        //assessAnswer(answer);
+        let a = targetEl.innerText;
+        assessAnswer(a);
     }
 
 }
