@@ -33,7 +33,7 @@ const q2 = {
     question: 'What is the correct syntax for referring to an external script called "xxx.js"?',
     a: 'A. <script src="xxx.js"',
     b: 'B. <script name="xxx.js">',
-    c: 'C. <script href="xxx.js"',
+    c: 'C. <script href="xxx.js">',
     d: 'D. None of the above',
     answer: "a"
 }
@@ -52,12 +52,11 @@ const startQuiz = function(){
     pageContentEl.removeChild(questionContainerEl);
     pageContentEl.removeChild(startButtonContainerEl);
     createQuiz();
-    takeQuiz();
 }
 
 const createQuiz = function(){
     const questionHeaderTextEl = document.getElementById("question-header-text");
-    questionHeaderTextEl.textContent = "What variable type allows you to store true or false values?"
+    questionHeaderTextEl.textContent = q0.question;
     
     const btn0El = document.createElement("button");
     btn0El.className = "btn";
@@ -94,8 +93,20 @@ const createQuiz = function(){
     questionCount++;
 }
 
+const buttonHandler = function(){
+    var targetEl = event.target;
 
-startButtonEl.addEventListener("click", startQuiz);
+    if(targetEl.matches("#start-btn")){
+        startQuiz();
+    }
+    else if (targetEl.matches(".btn")){
+        console.log("You Selected an Answer!")
+    }
+
+}
+
+pageContentEl.addEventListener("click", buttonHandler);
+
 
 
 
