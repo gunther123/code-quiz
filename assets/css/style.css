@@ -58,6 +58,7 @@ max-width: 1024px;
 .question-text{
     font-size: 20px;
     margin: 10px;
+    text-align: center;
 }
 
 .btn{
@@ -100,6 +101,23 @@ max-width: 1024px;
     margin-top: 10px;
     margin-left: 100px;
 }
+
+.form-button-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.high-score-name{
+    display: flex;
+    flex-direction: column;
+}
+
+.high-score-name-text, .submit-btn{
+    margin: 10px;
+}
+
+
 
 
 @media screen and (max-width: 768px){
