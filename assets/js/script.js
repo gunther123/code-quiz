@@ -10,14 +10,17 @@ let score = 0;
 let questionCount = 0;
 
 //Set Timer Variables
-let timer = 60;
+let timer = 5;
 let timerEl = document.getElementById("timer-count");
+let timerID;
 timerEl.innerHTML = timer;
+
     
 //Define Timer Countdown
 let timerCountdown = function(){
     if (timer <= 0){
         clearInterval(timerID);
+        timerEl.innerHTML = "0"
         endQuiz();
     }
     else{
@@ -75,7 +78,7 @@ const questions = [q0, q1, q2, q3];
 //Starts the Quiz
 const startQuiz = function(){
     //Start Countdown
-    let timerID = setInterval(timerCountdown, 1000);
+    timerID = setInterval(timerCountdown, 1000);
     
     //Remove HTML divs that are not used in the Quiz section
     pageContentEl.removeChild(questionContainerEl);
@@ -268,7 +271,3 @@ const buttonHandler = function(){
 }
 
 pageContentEl.addEventListener("click", buttonHandler);
-
-
-
-
