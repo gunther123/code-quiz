@@ -4,14 +4,32 @@ const questionHeaderEl = document.getElementById("question-header");
 const questionContainerEl = document.getElementById("question-container");
 const startButtonContainerEl = document.getElementById("start-button-container");
 const startButtonEl = document.getElementById("start-btn");
-let timerEl = document.getElementById("timer-text");
 
-//Variables question score and count down timer
+//Variables question score and count.
 let score = 0;
-let timer = 99;
 let questionCount = 0;
 
-//Setting timer text to timer variable
+//Set Timer Variables
+let timer = 99;
+let timerEl = document.getElementById("timer-text");
+
+//Define Timer Countdown
+let timerCountdown = function(){
+    if (timer <= 0){
+        clearInterval(timerID);
+        endQuiz();
+    }
+    else{
+        timerEl.innerHTML = timer;
+        timer--;
+    }
+}
+
+
+
+
+//Defining local storage
+let myStorage = window.localStorage;
 
 //Variables for questions, guesses, and answers
 const q0 = {
@@ -54,10 +72,14 @@ const questions = [q0, q1, q2, q3];
 
 //Starts the Quiz
 const startQuiz = function(){
+    //Start timer
+    let timerID = setInterval(timerCountdown, 1000);
+    
     //Remove HTML divs that are not used in the Quiz section
     pageContentEl.removeChild(questionContainerEl);
     pageContentEl.removeChild(startButtonContainerEl);
 
+    //Create Quiz
     createQuiz();
 }
 
@@ -105,8 +127,8 @@ const createQuiz = function(){
     mcButtonContainerEl.appendChild(btn1El);
     mcButtonContainerEl.appendChild(btn2El);
     mcButtonContainerEl.appendChild(btn3El);
-
 }
+
 const updateQuestion = function(){
     //Getting References to the HTML
     let questionHeaderTextEl = document.getElementById("question-header-text");
@@ -127,7 +149,6 @@ const updateQuestion = function(){
 
 const assessAnswer = function(a){
     //Correct Answer
-    
     if(a === questions[questionCount].answer){
         alert("Correct!");
         score+= 10;
@@ -142,6 +163,8 @@ const assessAnswer = function(a){
         timerEl.textContent = timer;
         questionCount ++;
     } 
+
+    //Logic to check if all questions have been answered
     if(questionCount < 4){
         updateQuestion();
     }
@@ -202,7 +225,6 @@ const endQuiz = function(){
     formSubmitButton.textContent = "Submit";
 
     //Append New Elements to Parent
-
     //Appending Question Container
     pageContentEl.appendChild(questionContainerEl);
     questionContainerEl.appendChild(questionTextEl);
@@ -213,6 +235,15 @@ const endQuiz = function(){
     highScoreNameEl.appendChild(highScoreLabelEl);
     highScoreNameEl.appendChild(highScoreInputEl);
     highScoreNameEl.appendChild(formSubmitButton);
+}
+
+const recordScore = function(){
+    event.preventDefault()
+
+    let initials = getElementById("high-score-name-text").value;
+    
+
+
 }
 
 //Handle all button clicks on the page
@@ -226,6 +257,10 @@ const buttonHandler = function(){
         console.dir(targetEl);
         let a = targetEl.innerText;
         assessAnswer(a);
+    }
+    else if(targetEl.matches("#submit-btn")){
+        recordScore();
+        resetQuiz();
     }
 
 }
