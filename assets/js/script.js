@@ -47,42 +47,56 @@ const q3 = {
     answer: "c"
 }
 
+// Array of all questions
+const questions = [q0, q1, q2, q3];
+
 //Starts the Quiz
 const startQuiz = function(){
+    //Remove HTML divs that are not used in the Quiz section
     pageContentEl.removeChild(questionContainerEl);
     pageContentEl.removeChild(startButtonContainerEl);
+
     createQuiz();
 }
 
+//Generate Quiz HTML
 const createQuiz = function(){
+    //Getting reference to the Question header
     const questionHeaderTextEl = document.getElementById("question-header-text");
-    questionHeaderTextEl.textContent = q0.question;
+    questionHeaderTextEl.textContent = questions[questionCount].question;
     
+    //Creating buttons for the Quiz
     const btn0El = document.createElement("button");
     btn0El.className = "btn";
     btn0El.id = "btn-0";
     btn0El.textContent = q0.a;
+
     const btn1El = document.createElement("btn-1");
     btn1El.className = "btn";
     btn1El.id = "btn-1";
     btn1El.textContent = q0.b;
+
     const btn2El = document.createElement("btn-2");
     btn2El.className = "btn";
     btn2El.id = "btn-2";
     btn2El.textContent = q0.c;
+
     const btn3El = document.createElement("btn-3");
     btn3El.className = "btn";
     btn3El.id = "btn-3";
     btn3El.textContent = q0.d;
 
+    //Create div button container
     const mcButtonContainerEl = document.createElement("div");
     mcButtonContainerEl.className = "mc-button-container";
     mcButtonContainerEl.id = "mc-button-container";
 
+    //Create question answers container(for flex purposes)
     const questionAnswersContainerEl = document.createElement("div");
     questionAnswersContainerEl.className = "question-answers-container";
     questionAnswersContainerEl.id = "question-answers-container";
 
+    //Adding children to Main Element
     pageContentEl.appendChild(questionAnswersContainerEl);
     questionAnswersContainerEl.appendChild(mcButtonContainerEl);
     mcButtonContainerEl.appendChild(btn0El);
@@ -90,17 +104,35 @@ const createQuiz = function(){
     mcButtonContainerEl.appendChild(btn2El);
     mcButtonContainerEl.appendChild(btn3El);
 
+    //Increment question count for questions array
     questionCount++;
 }
 
+const assessAnswer = function(answer){
+    if(answer === questions[questionCount].answer){
+        alert("Correct!");
+        score+= 10;
+        console.log(score);
+    }
+    else{
+        alert("Incorrect! Deducting 10 seconds!");
+        timer-= 10;
+        console.log(timer);
+    }
+}
+
+//Handle all button clicks on the page
 const buttonHandler = function(){
     var targetEl = event.target;
 
     if(targetEl.matches("#start-btn")){
         startQuiz();
     }
-    else if (targetEl.matches(".btn")){
-        console.log("You Selected an Answer!")
+    else if (targetEl.matches("#btn0") || targetEl.matches("#btn1") || targetEl.matches("#btn2") || targetEl.matches("#btn3") ){
+        console.dir(targetEl);
+        let answer = targetEl.innerText;
+        console.log(answer);
+        //assessAnswer(answer);
     }
 
 }
