@@ -142,7 +142,7 @@ const assessAnswer = function(a){
         timerEl.textContent = timer;
         questionCount ++;
     } 
-    if(questionCount <4){
+    if(questionCount < 4){
         updateQuestion();
     }
     else{
@@ -151,6 +151,68 @@ const assessAnswer = function(a){
 }
 
 const endQuiz = function(){
+    //Reference HTML Elements that are not global
+    let questionAnswersContainerEl = document.getElementById("question-answers-container");
+    //Remove Question Buttons
+    pageContentEl.removeChild(questionAnswersContainerEl);
+
+    //Update Question Header
+    let questionHeaderTextEl = document.getElementById("question-header-text");
+    questionHeaderTextEl.textContent = "All Done!"
+
+    //Create Question Text Div
+    let questionContainerEl = document.createElement("question-container");
+    questionContainerEl.id = "question-container";
+    questionContainerEl.className = "question-container";
+
+    //Create Question Text P Element
+    let questionTextEl = document.createElement("p");
+    questionTextEl.className = "question-text";
+    questionTextEl.id = "question-text";
+    questionTextEl.textContent = "Your final score is " + score;
+
+    //Create New HTML Elements
+    //Create High Score Form Div
+    let formButtonContainerEl = document.createElement("div")
+    formButtonContainerEl.className = "form-button-container" ;
+    formButtonContainerEl.id = "form-button-container";
+
+    //Create High Score Form
+    let highScoreNameEl = document.createElement("form");
+    highScoreNameEl.className = "high-score-name";
+    highScoreNameEl.id = "high-score-name";
+
+    //Create Form Label
+    let highScoreLabelEl = document.createElement("label");
+    highScoreLabelEl.htmlFor = "high-score-name-text";
+    highScoreLabelEl.className = "question-text";
+    highScoreLabelEl.textContent = "Enter your Initials:";
+
+    //Create Form Input
+    let highScoreInputEl = document.createElement("input");
+    highScoreInputEl.type = "text";
+    highScoreInputEl.name = "high-score-name-text";
+    highScoreInputEl.className = "high-score-name-text";
+    highScoreInputEl.id = "high-score-name-text";
+
+    //Create Form Submit Button
+    let formSubmitButton = document.createElement("button");
+    formSubmitButton.type = "submit";
+    formSubmitButton.className = "submit-btn";
+    formSubmitButton.textContent = "Submit";
+
+    //Append New Elements to Parent
+
+    //Appending Question Container
+    pageContentEl.appendChild(questionContainerEl);
+    questionContainerEl.appendChild(questionTextEl);
+
+    //Appending Form
+    pageContentEl.appendChild(formButtonContainerEl);
+    formButtonContainerEl.appendChild(highScoreNameEl);
+    highScoreNameEl.appendChild(highScoreLabelEl);
+    highScoreNameEl.appendChild(highScoreInputEl);
+    highScoreNameEl.appendChild(formSubmitButton);
 }
 
 //Handle all button clicks on the page
