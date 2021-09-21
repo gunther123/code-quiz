@@ -5,6 +5,32 @@ const questionContainerEl = document.getElementById("question-container");
 const startButtonContainerEl = document.getElementById("start-button-container");
 const startButtonEl = document.getElementById("start-btn");
 
+// Get the modal
+var modal = document.getElementById("high-score-modal");
+
+// Get the button that opens the modal
+var highScoreBtn = document.getElementById("high-score-button");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// when user clicks high score buton 
+highScoreBtn.onclick = function() {
+    modal.style.display = "block";
+  }
+  
+  // Close high score modal by clicking on the X
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  
+  // Close high score modal if clicking outside the modal
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
 //Variables question score and count.
 let score = 0;
 let questionCount = 0;
@@ -28,10 +54,6 @@ let timerCountdown = function(){
         timer--;
     }
     }
-
-
-
-
 
 //Defining local storage
 let myStorage = window.localStorage;
